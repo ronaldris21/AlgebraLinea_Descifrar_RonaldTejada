@@ -6,12 +6,12 @@ namespace TextDecrypter
 {
     public class Parrafos
     {
-        public int length;
-        public string text;
-        public string originalText;
-        public string[] filasText;
-        public int[,] MatrizNumerica;
-        public int[] filasValidas; //Ya que si contiene letras que desconozco, ES IMPOSIBLE USAR ESAS COLUMNAS!!!   
+        public int length { get; set; }
+        public string text { get; set; }
+        public string originalText { get; set; }
+        public string[] filasText { get; set; }
+        public int[,] MatrizVertical { get; set; }
+        public int[,] MatrizHorizontal { get; set; } //Ya que si contiene letras que desconozco, ES IMPOSIBLE USAR ESAS COLUMNAS!!!   
     }
 
     public static class Program
@@ -20,6 +20,10 @@ namespace TextDecrypter
         public const string textoCodificadoMatriz = "CTWKÑHOSQAHGFLXKZBQNBBÑFDBOEWECWKÑFPOEÑYRSKUZLIYHVBHUOADFYWWBHTLZFZBOAAUVVPQRRXBOIYDUBQVIRSTQTJGJGBTHSOJLÑPEAFFYOXDJUJGERVCQRDGGAUASJLTÑDQTRVHBGÑHRYQÑMTLJIOZVFPCIGOZHXLOXZAZPVXLRJLXTNCCCEEUUXDQQVCCQEUCIPELKQWPHZHYUKFCQEUCIPEVAAZMXUÑNKDQÑQÑDVÑBHBMUQFHAYTDBVCNDFTJELKUHPPJYTZGQACDUWKHPMPCTJHCILUÑUAJJJUTBGKQPYXPLMPQTJGGDBUTBRKAWHTWLEÑXZZXUHMÑNSUYÑZJDGHBYMPLQYLTNAKÑQHDRQESEQASOÑAURIYRAVYIOTJUESXBFCFEBYUFQIRFMKÑKBYCPTDGHBYEHQKDRUCWGUÑULKEASAADCLPXONTJSMAÑSVBMJSWRMTUETFTLPBULZLFLRHXWNCSIJVJPXUSZCGNJJBSUUDEVJHWUZLGVMHWCAXVXÑFGXCWABWYJWPYNKSIAXIJFOZTYURHRSINJAAPSPXKZBDAZBMUQJRBGFEBYVÑVPCQXBHDHACFYÑXELELIXJDNLÑKLIZABSMVBWHEMQÑNOISZEGDKJTPHZOEOTKLZVFPYMFQOWRRHCDWHJQUGJDCIYFWOAIDHBSOFSYKXQTMFYWWFPCNWREFTOEUWELKIELVHBRAKLCYQAUPVZMTPJZKFSLPEDKINYPRUEOOPNASWYVDGMFEAÑDRCDDAUREDFMEWGIHKEUOTEUJGSCNCBOQHYXMCRUGQNEUÑLLJL";
         public const string foderDirection = @"C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\";
         public static Dictionary<int, int> Coprimos27 { get; set; }
+
+        //Classes Ayudantes
+        public static StringMatrizFormatterHelper stringMatrizFormatter = new StringMatrizFormatterHelper();
+
 
 
 
@@ -35,7 +39,6 @@ namespace TextDecrypter
 			//Se borró el archivo, por eso se perdió el demás código de está clase.
 			//Al menos las demás siguen sin alterarse
 
-			var stringMatrizFormatter = new StringMatrizFormatterHelper();
 
 
             // Read the file and display it line by line
@@ -93,12 +96,27 @@ namespace TextDecrypter
 
 
 
+
+
+
+
+            //EjemploFuncional(); // del algoritmo implementado, acá se hicieron pruebas antes de probar con los datos finales
+            Console.WriteLine();
+            Console.ReadLine(); //Para que no sé cierre autómaticamente el programa
+        }
+
+
+        //Función 100% funcional
+        private static void EjemploFuncional()
+        {
+
+
             //Pruebo los algoritmoss que tengo!!!!
             //Me basaré en los datos del archivo CifrandoTexto Ejemplo Con Abecedario Desde Cero.txt
             //Dictionaries.AbecedarioNormalFromZero como permutación clave
 
 
-            
+
             //Lleno los datos que ya calcule previamente
             Parrafos pEntrada = new Parrafos() { originalText = "UNTRABAJOLABORIOSOYBONITO" };
             pEntrada.length = pEntrada.originalText.Length;
@@ -122,8 +140,8 @@ namespace TextDecrypter
                 for (int f = 0; f < 4; f++)
                 {
                     if (
-                        !Dictionaries.AbecedarioNormalFromZero.ContainsKey(pEntrada.filasText[f][c]) || 
-                        ! Dictionaries.AbecedarioNormalFromZero.ContainsKey(pSalida.filasText[f][c]))
+                        !Dictionaries.AbecedarioNormalFromZero.ContainsKey(pEntrada.filasText[f][c]) ||
+                        !Dictionaries.AbecedarioNormalFromZero.ContainsKey(pSalida.filasText[f][c]))
                     {
                         ContainsInvalidad = true;
                     }
@@ -131,7 +149,7 @@ namespace TextDecrypter
 
                 if (!ContainsInvalidad) /// Entonces todos los elementos de la columnas con validos! As[i que los agrego!!!
                 {
-                    int[] ColumnaDatos = new int[4]; 
+                    int[] ColumnaDatos = new int[4];
                     for (int f = 0; f < 4; f++) //Columna Entrada
                     {
                         ColumnaDatos[f] = Dictionaries.AbecedarioNormalFromZero[pEntrada.filasText[f][c]];
@@ -146,14 +164,14 @@ namespace TextDecrypter
                 }
             }
 
-            
+
 
             Console.WriteLine("Matriz Entrada transpuesta");
             foreach (var item in MatrizEntradaTrans)
             {
                 foreach (var dato in item)
                 {
-                    Console.Write("{0,3}",dato);
+                    Console.Write("{0,3}", dato);
                 }
                 Console.WriteLine();
             }
@@ -173,9 +191,16 @@ namespace TextDecrypter
 
 
             //Creo la matriz que me interesa
+
+            //MATRICES HORIZONTALES
             int CantColumnas = MatrizEntradaTrans.Count;
             int[,] MatrizEntradaF = new int[4, CantColumnas];
             int[,] MatrizSalidaF = new int[4, CantColumnas];
+
+            //Matrices VERTICALES
+
+            int[,] MatrizEntradaF_Vertical = new int[CantColumnas, 4];
+            int[,] MatrizSalidaF_Vertical = new int[CantColumnas, 4];
 
 
 
@@ -186,17 +211,31 @@ namespace TextDecrypter
             {
                 for (int c = 0; c < CantColumnas; c++)
                 {
-                    MatrizEntradaF[f, c] = MatrizEntradaTrans[c][f]%27;
+                    MatrizEntradaF_Vertical[c, f] = MatrizEntradaTrans[c][f] % 27;
+                    MatrizEntradaF[f, c] = MatrizEntradaTrans[c][f] % 27;
                     Console.Write("{0,4}", MatrizEntradaF[f, c]);
                 }
                 Console.Write(" | ");
                 for (int c = 0; c < CantColumnas; c++)
                 {
-                    MatrizSalidaF[f, c] = MatrizSalidaTrans[c][f]%27;
+                    MatrizSalidaF_Vertical[c, f] = MatrizSalidaTrans[c][f] % 27;
+                    MatrizSalidaF[f, c] = MatrizSalidaTrans[c][f] % 27;
                     Console.Write("{0,4}", MatrizSalidaF[f, c]);
                 }
                 Console.WriteLine();
             }
+
+
+
+            AnalisisMatricesAmpliadasVERTICAL(CantColumnas, MatrizEntradaF_Vertical, MatrizSalidaF_Vertical); //Acá sería cantidad de filas
+            AnalisisMatricesAmpliadasHORIZONTAL(CantColumnas, MatrizEntradaF, MatrizSalidaF);
+
+
+        }
+
+        private static void AnalisisMatricesAmpliadasVERTICAL(int cantFilas, int[,] MatrizEntradaF, int[,] MatrizSalidaF)
+        {
+            Console.WriteLine("ANALISIS MATRIZ AMPLIADA EN VERTICAL");
 
 
             int Fila, Columna;
@@ -210,13 +249,84 @@ namespace TextDecrypter
                 Console.WriteLine();
 
 
-                ImprimirMatrizAmpliadaAnalizar(CantColumnas,MatrizEntradaF,MatrizSalidaF);
+                ImprimirMatrizAmpliada(cantFilas, 4, MatrizEntradaF, MatrizSalidaF);
 
-
-                Console.Write("\nFila: ");
+                Console.Write("\nColumna: ");
+                Columna = int.Parse(Console.ReadLine());
+                Console.Write("Fila: ");
                 Fila = int.Parse(Console.ReadLine());
+
+
+                //Primero hago 1!!!
+                int ValorSeleccionado = MatrizEntradaF[Fila, Columna];
+
+                if (Coprimos27.ContainsKey(ValorSeleccionado))
+                {
+                    ValorSeleccionado = Coprimos27[ValorSeleccionado];//Saco el que lo hace 27n+1
+                    for (int i = 0; i < 4; i++)
+                    {
+                        //Entrada
+                        MatrizEntradaF[Fila, i] *= ValorSeleccionado; //A modo de hacerlo 1
+                        MatrizEntradaF[Fila, i] = MatrizEntradaF[Fila, i] % 27;
+
+                        //Salida
+                        MatrizSalidaF[Fila, i] *= ValorSeleccionado; //A modo de hacerlo 1
+                        MatrizSalidaF[Fila, i] = MatrizSalidaF[Fila, i] % 27;
+                    }
+
+                    ImprimirMatrizAmpliada(cantFilas, 4, MatrizEntradaF, MatrizSalidaF);
+
+                    //Me interesa hacer CEROS en la COLUMNA SELECCIONADA!!!
+                    //Ahora, tengo que hacer Ceros los demas
+                    for (int f = 0; f < cantFilas; f++)
+                    {
+                        if (f != Fila)//Para no hacer cero a la fila seleccionada!!!
+                        {
+                            int ValorColumnaEnF = MatrizEntradaF[f, Columna];
+                            for (int c = 0; c < 4; c++)
+                            {
+                                //Entrada
+                                MatrizEntradaF[f, c] = (MatrizEntradaF[f, c] - MatrizEntradaF[Fila, c] * ValorColumnaEnF) % 27; //Fila queda fija
+
+                                //Salida
+                                MatrizSalidaF[f, c] = (MatrizSalidaF[f, c] - MatrizSalidaF[Fila, c] * ValorColumnaEnF) % 27; //Fila queda fija
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\n\n***************************************\n{0} NO ES COPRIMO DE 27\n\n", ValorSeleccionado);
+                }
+
+
+
+
+            } while (!(Fila == 0 && Columna == 0));
+        }
+
+        private static void AnalisisMatricesAmpliadasHORIZONTAL(int CantColumnas,int[,] MatrizEntradaF, int[,] MatrizSalidaF)
+        {
+            Console.WriteLine("ANALISIS MATRIZ AMPLIADA EN VERTICAL");
+
+            int Fila, Columna;
+            do
+            {
+                Console.Write("\n\nCoprimos de 27: ");
+                foreach (var item in Coprimos27)
+                {
+                    Console.Write($"{item.Value}, ");
+                }
+                Console.WriteLine();
+
+
+                ImprimirMatrizAmpliada(4,CantColumnas, MatrizEntradaF, MatrizSalidaF);
+
                 Console.Write("Columna: ");
                 Columna = int.Parse(Console.ReadLine());
+                Console.Write("\nFila: ");
+                Fila = int.Parse(Console.ReadLine());
+                
 
                 //Primero hago 1!!!
                 int ValorSeleccionado = MatrizEntradaF[Fila, Columna];
@@ -235,79 +345,40 @@ namespace TextDecrypter
                         MatrizSalidaF[Fila, i] = MatrizSalidaF[Fila, i] % 27;
                     }
 
-                    ImprimirMatrizAmpliadaAnalizar(CantColumnas, MatrizEntradaF, MatrizSalidaF);
+                    ImprimirMatrizAmpliada(4,CantColumnas, MatrizEntradaF, MatrizSalidaF);
 
                     //Me interesa hacer CEROS en la COLUMNA SELECCIONADA!!!
                     //Ahora, tengo que hacer Ceros los demas
                     for (int f = 0; f < 4; f++)
                     {
-                        if (f!=Fila)//Para no hacer cero a la fila seleccionada!!!
+                        if (f != Fila)//Para no hacer cero a la fila seleccionada!!!
                         {
                             int ValorColumnaEnF = MatrizEntradaF[f, Columna];
                             for (int c = 0; c < CantColumnas; c++)
                             {
                                 //Entrada
-                                MatrizEntradaF[f, c] = (MatrizEntradaF[f, c] - MatrizEntradaF[Fila, c] * ValorColumnaEnF)%27; //Fila queda fija
+                                MatrizEntradaF[f, c] = (MatrizEntradaF[f, c] - MatrizEntradaF[Fila, c] * ValorColumnaEnF) % 27; //Fila queda fija
 
                                 //Salida
-                                MatrizSalidaF[f, c] = (MatrizSalidaF[f, c] - MatrizSalidaF[Fila, c] * ValorColumnaEnF)%27; //Fila queda fija
+                                MatrizSalidaF[f, c] = (MatrizSalidaF[f, c] - MatrizSalidaF[Fila, c] * ValorColumnaEnF) % 27; //Fila queda fija
                             }
                         }
                     }
                 }
                 else
                 {
-                    Console.WriteLine("\n\n***************************************\n{0} NO ES COPRIMO DE 27\n\n");
+                    Console.WriteLine("\n\n***************************************\n{0} NO ES COPRIMO DE 27\n\n", ValorSeleccionado);
                 }
 
 
-                
-
-            } while (!(Fila==0 && Columna==0));
 
 
-
-
-
-
-            //for (int c = 0; c < 4; c++)
-            //{
-            //    //Imprimire Matrix 4x4  por el momento solo para com
-            //    for (int f = 0; f < 4; f++)
-            //    {
-            //        Console.Write("{0:3}",ColumnasEntrada[c][f]);
-            //    }
-            //    Console.Write(" | ");
-
-            //    for (int f = 0; f < 4; f++)
-            //    {
-            //        Console.Write("{0:3}",ColumnasSalida[c][f]);
-            //    }
-            //    Console.WriteLine();
-            //}
-
-
-
-
-
-            //Ahora convierte los objetos a matrices con formato deseado!
-
-            //Has Gauss!!!!
-
-
-
-
-
-
-            Console.WriteLine();
-
-            Console.ReadLine();
-
-
+            } while (!(Fila == 0 && Columna == 0));
 
         }
 
-        private static void ImprimirMatrizAmpliadaAnalizar(int CantColumnas, int[,] MatrizEntradaF, int[,] MatrizSalidaF)
+
+        private static void ImprimirMatrizAmpliada(int cantFilas, int CantColumnas, int[,] MatrizEntradaF, int[,] MatrizSalidaF)
         {
             Console.WriteLine("\n");
             Console.WriteLine("Matriz Ampliada a analizar");
@@ -318,7 +389,7 @@ namespace TextDecrypter
                 Console.Write(" ");
             }
             Console.WriteLine();
-            for (int f = 0; f < 4; f++)
+            for (int f = 0; f < cantFilas; f++)
             {
                 for (int c = 0; c < CantColumnas; c++)
                 {
