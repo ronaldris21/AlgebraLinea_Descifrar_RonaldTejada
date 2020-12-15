@@ -1,0 +1,22 @@
+C:\Users\ronal\source\repos\TextDecrypter\bin\Debug\TextDecrypter.exe.config
+C:\Users\ronal\source\repos\TextDecrypter\bin\Debug\TextDecrypter.exe
+C:\Users\ronal\source\repos\TextDecrypter\bin\Debug\TextDecrypter.pdb
+C:\Users\ronal\source\repos\TextDecrypter\bin\Debug\MathNet.Numerics.dll
+C:\Users\ronal\source\repos\TextDecrypter\obj\Debug\TextDecrypter.csprojAssemblyReference.cache
+C:\Users\ronal\source\repos\TextDecrypter\obj\Debug\TextDecrypter.csproj.CoreCompileInputs.cache
+C:\Users\ronal\source\repos\TextDecrypter\obj\Debug\TextDecrypter.csproj.CopyComplete
+C:\Users\ronal\source\repos\TextDecrypter\obj\Debug\TextDecrypter.exe
+C:\Users\ronal\source\repos\TextDecrypter\obj\Debug\TextDecrypter.pdb
+C:\Users\ronal\source\repos\TextDecrypter\bin\Debug\Combinatorics.dll
+C:\Users\ronal\source\repos\TextDecrypter\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\bin\Debug\TextDecrypter.exe.config
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\bin\Debug\TextDecrypter.exe
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\bin\Debug\TextDecrypter.pdb
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\bin\Debug\Combinatorics.dll
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\bin\Debug\MathNet.Numerics.dll
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\obj\Debug\TextDecrypter.csprojAssemblyReference.cache
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\obj\Debug\TextDecrypter.csproj.CoreCompileInputs.cache
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\obj\Debug\TextDecrypter.csproj.CopyComplete
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\obj\Debug\TextDecrypter.exe
+C:\Users\ronal\Documents\Drive Docs\UCAM\Algebra Lineal\Resultados\TextDecrypter\obj\Debug\TextDecrypter.pdb

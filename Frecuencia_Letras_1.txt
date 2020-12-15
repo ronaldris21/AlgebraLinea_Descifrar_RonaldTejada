@@ -1,0 +1,24 @@
+Frecuencia palabras de 1 letras seguidas
+R - [R, 71] veces
+Z - [Z, 62] veces
+Ñ - [Ñ, 48] veces
+W - [W, 47] veces
+O - [O, 45] veces
+N - [N, 31] veces
+X - [X, 28] veces
+A - [A, 26] veces
+L - [L, 23] veces
+E - [E, 18] veces
+T - [T, 16] veces
+C - [C, 14] veces
+K - [K, 12] veces
+H - [H, 11] veces
+D - [D, 10] veces
+M - [M, 7] veces
+Q - [Q, 7] veces
+S - [S, 5] veces
+B - [B, 3] veces
+J - [J, 3] veces
+F - [F, 2] veces
+V - [V, 1] veces
+I - [I, 1] veces
